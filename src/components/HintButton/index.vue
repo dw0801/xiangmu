@@ -1,0 +1,13 @@
+<template>
+  <a :title="title" style="margin:0 10px">
+    <el-button v-bind="$attrs" v-on="$listeners" />
+  </a>
+</template>
+<script>
+export default
+{ name: 'HintButton',
+  props: ['title']
+}
+</script>
+<style lang='less' scoped>
+</style>
