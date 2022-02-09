@@ -29,15 +29,16 @@
         </el-dialog>
       </el-form-item>
       <el-form-item label="销售属性">
-        <el-select v-model="attrId" :placeholder="`还有${unSelectSaleAttr.length}未选择`">
-          <el-option v-for="item in unSelectSaleAttr" :key="item.id" :label="item.name" :value="item.id" />
+        <el-select v-model="attr" :placeholder="`还有${unSelectSaleAttr.length}未选择`">
+          <el-option v-for="item in unSelectSaleAttr" :key="item.id" :label="item.name" :value="`${item.id}:${item.name}`" />
         </el-select>
-        <el-button type="primary" icon="el-icon-plus" :disabled="!attrId">添加销售属性</el-button>
+        <el-button type="primary" icon="el-icon-plus" :disabled="!attr" @click="addSaleAttr">添加销售属性</el-button>
         <el-table border :data="spu.spuSaleAttrList">
           <el-table-column type="index" label="序号" align="center" width="80" />
           <el-table-column prop="saleAttrName" label="属性名" width="width" />
           <el-table-column prop="prop" label="属性值名列表" width="width">
             <template slot-scope="{row}">
+              <!-- 用于展示已有属性值的数据的 -->
               <el-tag
                 v-for="item in row.spuSaleAttrValueList"
                 :key="item.id"
@@ -53,11 +54,12 @@
                 v-model="row.inputValue"
                 class="input-new-tag"
                 size="small"
+                @blur="handleInputConfirm(row)"
               />
               <!-- @keyup.enter.native="handleInputConfirm"
                 @blur="handleInputConfirm" -->
               <!-- @click="showInput" -->
-              <el-button v-else class="button-new-tag" size="small">添加+</el-button>
+              <el-button v-else class="button-new-tag" size="small" @click="addSaleAttrValue(row)">添加+</el-button>
             </template>
           </el-table-column>
           <el-table-column prop="" label="操作" width="width">
@@ -122,7 +124,7 @@ export default
       tradeMarkList: [], // 存储品牌信息
       spuImageList: [], // 存储图片信息
       saleAttrList: [], // 销售属性
-      attrId: '' // 收集未选择的销售属性Id
+      attr: '' // 收集未选择的销售属性Id
     }
   },
   computed: {
@@ -135,6 +137,39 @@ export default
     }
   },
   methods: {
+    // 销售属性中input文本框失去焦点的函数
+    handleInputConfirm(row) {
+      const { baseSaleAttrId, inputValue } = row
+      if (inputValue.trim() === '') {
+        this.$message({
+          message: '属性值不能为空',
+          type: 'error'
+        })
+        return
+      }
+      if (row.spuSaleAttrValueList.some(item => item.saleAttrValueName === inputValue)) {
+        this.$message({
+          message: '属性值不能相同',
+          type: 'error'
+        })
+        return
+      }
+      const newSaleAttrValue = { baseSaleAttrId, saleAttrValueName: inputValue }
+      row.spuSaleAttrValueList.push(newSaleAttrValue)
+      row.inputVisible = false
+    },
+    // 销售属性中添加按钮的函数
+    addSaleAttrValue(row) {
+      this.$set(row, 'inputVisible', true)
+      this.$set(row, 'inputValue', '')
+    },
+    // 添加新的销售属性
+    addSaleAttr() {
+      const [baseSaleAttrId, saleAttrName] = this.attr.split(':')
+      const newSaleAttr = { baseSaleAttrId, saleAttrName, spuSaleAttrValueList: [] }
+      this.spu.spuSaleAttrList.push(newSaleAttr)
+      this.attr = ''
+    },
     // 照片墙删除的时候触发的函数
     handleRemove(file, fileList) {
       // file:删除的那张照片
