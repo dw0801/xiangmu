@@ -40,12 +40,13 @@
             <template slot-scope="{row}">
               <!-- 用于展示已有属性值的数据的 -->
               <el-tag
-                v-for="item in row.spuSaleAttrValueList"
+                v-for="(item,index) in row.spuSaleAttrValueList"
                 :key="item.id"
                 closable
                 :disable-transitions="false"
+                @close="row.spuSaleAttrValueList.splice(index,1)"
               >
-                <!-- @close="handleClose(tag)" -->
+
                 {{ item.saleAttrValueName }}
               </el-tag>
               <el-input
@@ -63,15 +64,15 @@
             </template>
           </el-table-column>
           <el-table-column prop="" label="操作" width="width">
-            <template slot-scope="{row}">
-              <el-button type="danger" size="mini" icon="el-icon-delete" />
+            <template slot-scope="{row,$index}">
+              <el-button type="danger" size="mini" icon="el-icon-delete" @click="spu.spuSaleAttrList.splice($index,1)" />
             </template>
           </el-table-column>
         </el-table>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">保存</el-button>
-        <el-button @click="$emit('changeScene',0)">取消</el-button>
+        <el-button type="primary" @click="addOrUpdateSpu">保存</el-button>
+        <el-button @click="cancel">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -85,7 +86,7 @@ export default
       dialogVisible: false,
       spu: {
         // 品牌的ID
-        tmId: 0,
+        tmId: '',
         // 三级分类的ID
         category3Id: 0,
         // 描述
@@ -208,11 +209,55 @@ export default
         })
         this.spuImageList = listArr
       }
-      // 获取图片的数据
+      // 获取平台全部销售属性的数据
       const resSale = await this.$API.spu.reqBaseSaleAttrList()
       if (resSale.code === 200) {
         this.saleAttrList = resSale.data
       }
+    },
+    // 点击保存触发的事件
+    async addOrUpdateSpu() {
+      // 整理参数，需要整理照片墙里面的数据，因为照片墙要显示必须是那么和url，然而服务器的是imgName和imgUrl
+      this.spu.spuImageList = this.spuImageList.map(item => {
+        return {
+          imageName: item.name,
+          imageUrl: (item.response && item.response.data) || item.url
+        }
+      })
+      const res = await this.$API.spu.reqAddOrUpdateSpu(this.spu)
+      if (res.code === 200) {
+        this.$message({
+          type: 'success',
+          message: '保存成功'
+        })
+        // 通知父组件回到场景0
+        this.$emit('changeScene', 0)
+      }
+      // 清除数据
+      Object.assign(this._data, this.$options.data())
+    },
+    // 父组件点击添加按钮的事假
+    async addSpuData(category3Id) {
+      // 收集三级分类id
+      this.spu.category3Id = category3Id
+      // 获取品牌的数据
+      const resPin = await this.$API.spu.reqTradeMarkList()
+      if (resPin.code === 200) {
+        this.tradeMarkList = resPin.data
+      }
+      // 获取平台全部销售属性的数据
+      const resSale = await this.$API.spu.reqBaseSaleAttrList()
+      if (resSale.code === 200) {
+        this.saleAttrList = resSale.data
+      }
+    },
+    // 点击取消是清楚数据
+    cancel() {
+      this.$emit('changeScene', 0)
+      // Object.assign:es6中新增的方法可以合并对象
+      // 组件实例this._data,可以操作data当中响应式数据
+      // this.$options可以获取配置对象，配置对象的data函数执行，返回的响应式数据为空的
+      Object.assign(this._data, this.$options.data())
     }
   }
 }
