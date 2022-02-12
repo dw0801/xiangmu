@@ -1,6 +1,8 @@
 <template>
   <div>
-    <el-card style="margin:0 0 20px"><CategorySelect :show="scene!==0" @getGoods="getGoods" /></el-card>
+    <el-card style="margin:0 0 20px">
+      <CategorySelect :show="scene!==0" @getGoods="getGoods" />
+    </el-card>
     <el-card>
       <!-- 展示Spu列表的表格数据 -->
       <div v-show="scene ===0">
@@ -14,7 +16,7 @@
               <hint-button title="添加sku" type="success" icon="el-icon-plus" size="mini" @click="addSku(row)" />
               <hint-button title="修改spu" type="warning" icon="el-icon-edit" size="mini" @click="updateSpu(row)" />
               <hint-button title="查看spu全部的sku" type="info" icon="el-icon-info" size="mini" />
-              <el-popconfirm title="这是一段内容确定删除吗？" @onConfirm="deleteSpu(row)">
+              <el-popconfirm title="这是一段内容确定删除吗?" @onConfirm="deleteSpu(row)">
                 <hint-button slot="reference" title="删除spu" type="danger" icon="el-icon-delete" size="mini" />
               </el-popconfirm>
             </template>
@@ -25,15 +27,15 @@
       <!-- 添加和修改spu的界面 -->
       <SpuForm v-show="scene ===1" ref="spu" @changeScene="changeScene" />
       <!-- 添加sku的界面  -->
-      <SkuForm v-show="scene ===2" />
+      <SkuForm v-show="scene ===2" ref="sku" @changeScenes="changeScenes" />
     </el-card>
   </div>
 </template>
 <script>
 import SpuForm from './spuForm/index.vue'
 import SkuForm from './skuForm/index.vue'
-export default
-{ name: 'Spu',
+export default {
+  name: 'Spu',
   components: {
     SpuForm,
     SkuForm
@@ -126,8 +128,14 @@ export default
     // 添加sku按钮的事件
     addSku(row) {
       this.scene = 2
+      this.$refs.sku.getData(this.category1Id, this.category2Id, row)
+    },
+    //skuForm修改场景的事件
+    changeScenes(scene) {
+      this.scene = scene
     }
-  }}
+  }
+}
 </script>
 <style lang='less' scoped>
 </style>
