@@ -194,6 +194,6 @@ module.exports = {
       objectsInObjects: false
     }],
     'array-bracket-spacing': [2, 'never'],
-    "indent": ["error", "ignoredNodes"]
+    // "indent": ["error", "ignoredNodes"]
   }
 }

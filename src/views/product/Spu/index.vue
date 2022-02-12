@@ -15,7 +15,7 @@
             <template slot-scope="{row}">
               <hint-button title="添加sku" type="success" icon="el-icon-plus" size="mini" @click="addSku(row)" />
               <hint-button title="修改spu" type="warning" icon="el-icon-edit" size="mini" @click="updateSpu(row)" />
-              <hint-button title="查看spu全部的sku" type="info" icon="el-icon-info" size="mini" />
+              <hint-button title="查看spu全部的sku" type="info" icon="el-icon-info" size="mini" @click="handler(row)" />
               <el-popconfirm title="这是一段内容确定删除吗?" @onConfirm="deleteSpu(row)">
                 <hint-button slot="reference" title="删除spu" type="danger" icon="el-icon-delete" size="mini" />
               </el-popconfirm>
@@ -29,6 +29,18 @@
       <!-- 添加sku的界面  -->
       <SkuForm v-show="scene ===2" ref="sku" @changeScenes="changeScenes" />
     </el-card>
+    <el-dialog :title="`${spu.spuName}的sku列表`" :visible.sync="dialogTableVisible" :before-close="close">
+      <el-table v-loading="loading" :data="skuList" border style="width:100%">
+        <el-table-column prop="skuName" label="名称" width="150" />
+        <el-table-column prop="price" label="价格" width="200" />
+        <el-table-column prop="weight" label="重量" />
+        <el-table-column prop="prop" label="默认图片">
+          <template slot-scope="{row}">
+            <img :src="row.skuDefaultImg" style="width:100px;hight:100px">
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -52,7 +64,11 @@ export default {
       page: 1, // 当前页数
       limit: 3, // 一页的条数
       records: [], // spu的列表数据
-      total: 0 // 数据的总条数
+      total: 0, // 数据的总条数
+      dialogTableVisible: false, // 控制查看sku对话的参数
+      spu: {},
+      skuList: [], // 保存sku列表的数据
+      loading: true
     }
   },
   methods: {
@@ -130,9 +146,27 @@ export default {
       this.scene = 2
       this.$refs.sku.getData(this.category1Id, this.category2Id, row)
     },
-    //skuForm修改场景的事件
+    // 查看sku按钮的事件
+    async handler(spu) {
+      this.dialogTableVisible = true
+      this.spu = spu
+      // 获取sku列表的数据
+      const res = await this.$API.spu.reqSkuList(spu.id)
+      if (res.code === 200) {
+        this.skuList = res.data
+        this.loading = false
+      }
+    },
+    // skuForm修改场景的事件
     changeScenes(scene) {
       this.scene = scene
+    },
+    // 关闭对话框的事件
+    close(done) {
+      this.loading = true
+      this.skuList = []
+      // 关闭对话框
+      done()
     }
   }
 }
