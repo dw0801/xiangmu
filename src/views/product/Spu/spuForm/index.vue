@@ -77,30 +77,30 @@ export default
           // 收集SPU图片的信息
           spuImageList: [
             /*  {
-              'id': 0,
-              'imgName': 'string',
-              'imgUrl': 'string',
-              'spuId': 0
-            } */
+                  'id': 0,
+                  'imgName': 'string',
+                  'imgUrl': 'string',
+                  'spuId': 0
+                } */
           ],
           // 收集平台值和属性
           spuSaleAttrList: [
             /* {
-              'baseSaleAttrId': 0,
-              'id': 0,
-              'saleAttrName': 'string',
-              'spuId': 0,
-              'spuSaleAttrValueList': [
-                {
                   'baseSaleAttrId': 0,
                   'id': 0,
-                  'isChecked': 'string',
                   'saleAttrName': 'string',
-                  'saleAttrValueName': 'string',
-                  'spuId': 0
-                }
-              ]
-            } */
+                  'spuId': 0,
+                  'spuSaleAttrValueList': [
+                    {
+                      'baseSaleAttrId': 0,
+                      'id': 0,
+                      'isChecked': 'string',
+                      'saleAttrName': 'string',
+                      'saleAttrValueName': 'string',
+                      'spuId': 0
+                    }
+                  ]
+                } */
           ]
         }, // 存储spu信息  修改的时候有这些数据  但是添加没有  所以要写下来
         tradeMarkList: [], // 存储品牌信息

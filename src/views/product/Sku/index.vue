@@ -18,7 +18,9 @@
           <el-button v-else type="info" icon="el-icon-bottom" size="mini" @click="sale(row)" />
           <el-button type="primary" icon="el-icon-edit" size="mini" @click="edit" />
           <el-button type="info" icon="el-icon-info" size="mini" @click="getSkuInfo(row)" />
-          <el-button type="danger" icon="el-icon-delete" size="mini" />
+          <el-popconfirm title="这是一段内容确定删除吗?" @onConfirm="deleteSku(row)">
+            <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini" style="margin-left:10px" />
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -64,9 +66,9 @@
           商品图片
         </el-col>
         <el-col :span="16">
-          <el-carousel height="500px">
+          <el-carousel height="450px">
             <el-carousel-item v-for="item in skuInfo.skuImageList" :key="item.id">
-              <img :src="item.imgUrl" alt="" style="width:100%">
+              <img :src="item.imgUrl" alt="" style="height:490px">
             </el-carousel-item>
           </el-carousel>
         </el-col>
@@ -136,6 +138,17 @@ export default {
         this.skuInfo = res.data
         this.drawer = true
       }
+    },
+    // 删除sku
+    async deleteSku(sku) {
+      const res = await this.$API.sku.reqDeleteSku(sku.id)
+      if (res.code === 200) {
+        this.getSkuList(this.page)
+        this.$message({
+          type: 'success',
+          message: '删除成功'
+        })
+      }
     }
   }
 }
@@ -164,7 +177,7 @@ export default {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
-.el-carousel__button {
+>>> .el-carousel__button {
   width: 10px;
   height: 10px;
   border-radius: 50%;

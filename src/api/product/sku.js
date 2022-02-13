@@ -16,3 +16,8 @@ export const reqCancel = (skuId) => request({ url: `/admin/product/cancelSale/${
 // /admin/product/getSkuById/{skuId}  get
 export const reqSkuById = (skuId) => request({ url: `/admin/product/getSkuById/${skuId}`, method: 'get' })
 
+// 删除SKU的接口
+// DELETE /admin/product/deleteSku/{skuId}
+
+export const reqDeleteSku = (skuId) => request({ url: `/admin/product/deleteSku/${skuId}`, method: 'delete' })
+
