@@ -2,7 +2,7 @@
   <div>
     <div class="header">
       <span class="search-header">
-        搜索用户数
+        {{ title }}
       </span>
       <svg t="1645147873881" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5296" width="16" height="16">
         <path d="M512 0C229.23 0 0 229.23 0 512s229.23 512 512 512 512-229.23 512-512S794.77 0 512 0zM512 928c-229.75 0-416-186.25-416-416S282.25 96 512 96s416 186.25 416 416S741.75 928 512 928z" p-id="5297" fill="#dbdbdb" />
@@ -11,12 +11,12 @@
       </svg>
     </div>
     <div class="main">
-      <span class="main-left">12321</span>
-      <span class="main-right">17.1</span>
-      <svg t="1645149008233" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2003" width="12" height="12">
+      <span class="main-left">{{ search }}</span>
+      <span class="main-right">{{ data }}</span>
+      <svg v-if="zf === '+' " t="1645149008233" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2003" width="12" height="12">
         <path d="M960 704L512 256l-448 448z" fill="#d81e06" p-id="2004" />
       </svg>
-      <svg t="1645149100398" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2919" width="12" height="12">
+      <svg v-else t="1645149100398" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2919" width="12" height="12">
         <path d="M64 320l448 448 448-448z" fill="#1afa29" p-id="2920" />
       </svg>
     </div>
@@ -29,6 +29,7 @@
 import * as echarts from 'echarts'
 export default {
   name: '',
+  props: ['title', 'search', 'data', 'zf'],
   mounted() {
     const lineChart = echarts.init(this.$refs.charts)
     lineChart.setOption({

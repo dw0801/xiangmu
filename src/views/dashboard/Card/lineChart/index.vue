@@ -9,7 +9,6 @@ export default {
   mounted() {
     const lineChart = echarts.init(this.$refs.charts)
     lineChart.setOption({
-      tooltip: {},
       xAxis: {
         show: false,
         type: 'category'

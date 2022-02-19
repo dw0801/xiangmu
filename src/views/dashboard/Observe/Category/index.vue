@@ -17,20 +17,181 @@
 </template>
 <script>
 import * as echarts from 'echarts'
+import { mapState } from 'vuex'
 export default {
   name: '',
   data() {
     return {
-      value: '全部渠道'
+      value: '全部渠道',
+      myChart: null
     }
+  },
+  watch: {
+    value() {
+      if (this.value === '全部渠道') {
+        this.myChart.setOption({
+          title: {
+            text: this.listState.saleRank.online.name[0],
+            subtext: (this.listState.saleRank.online.value[0] + this.listState.saleRank.shop.value[0]) / 2 + '%',
+            left: 'center',
+            top: 'center'
+          },
+          series: [
+            {
+              name: 'Access From',
+              type: 'pie',
+              radius: ['40%', '70%'],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                borderRadius: 5,
+                borderColor: '#fff',
+                borderWidth: 2
+              },
+              label: {
+                show: true,
+                position: 'outside'
+              },
+              labelLine: {
+                show: true
+              },
+              data: [
+                { value: (this.listState.saleRank.online.value[0] + this.listState.saleRank.shop.value[0]) / 2, name: this.listState.saleRank.online.name[0] },
+                { value: (this.listState.saleRank.online.value[1] + this.listState.saleRank.shop.value[1]) / 2, name: this.listState.saleRank.online.name[1] },
+                { value: (this.listState.saleRank.online.value[2] + this.listState.saleRank.shop.value[2]) / 2, name: this.listState.saleRank.online.name[2] },
+                { value: (this.listState.saleRank.online.value[3] + this.listState.saleRank.shop.value[3]) / 2, name: this.listState.saleRank.online.name[3] },
+                { value: (this.listState.saleRank.online.value[4] + this.listState.saleRank.shop.value[4]) / 2, name: this.listState.saleRank.online.name[4] },
+                { value: (this.listState.saleRank.online.value[5] + this.listState.saleRank.shop.value[5]) / 2, name: this.listState.saleRank.online.name[5] }
+              ]
+            }
+          ]
+        })
+      } else if (this.value === '线上') {
+        this.myChart.setOption({
+          title: {
+            text: this.listState.saleRank.online.name[0],
+            subtext: this.listState.saleRank.online.value[0] + '%',
+            left: 'center',
+            top: 'center'
+          },
+          series: [
+            {
+              name: 'Access From',
+              type: 'pie',
+              radius: ['40%', '70%'],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                borderRadius: 5,
+                borderColor: '#fff',
+                borderWidth: 2
+              },
+              label: {
+                show: true,
+                position: 'outside'
+              },
+              labelLine: {
+                show: true
+              },
+              data: [
+                { value: this.listState.saleRank.online.value[0], name: this.listState.saleRank.online.name[0] },
+                { value: this.listState.saleRank.online.value[1], name: this.listState.saleRank.online.name[1] },
+                { value: this.listState.saleRank.online.value[2], name: this.listState.saleRank.online.name[2] },
+                { value: this.listState.saleRank.online.value[3], name: this.listState.saleRank.online.name[3] },
+                { value: this.listState.saleRank.online.value[4], name: this.listState.saleRank.online.name[4] },
+                { value: this.listState.saleRank.online.value[5], name: this.listState.saleRank.online.name[5] }
+              ]
+            }
+          ]
+        })
+      } else {
+        this.myChart.setOption({
+          title: {
+            text: this.listState.saleRank.shop.name[0],
+            subtext: this.listState.saleRank.shop.value[0] + '%',
+            left: 'center',
+            top: 'center'
+          },
+          series: [
+            {
+              name: 'Access From',
+              type: 'pie',
+              radius: ['40%', '70%'],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                borderRadius: 5,
+                borderColor: '#fff',
+                borderWidth: 2
+              },
+              label: {
+                show: true,
+                position: 'outside'
+              },
+              labelLine: {
+                show: true
+              },
+              data: [
+                { value: this.listState.saleRank.shop.value[0], name: this.listState.saleRank.online.name[0] },
+                { value: this.listState.saleRank.shop.value[1], name: this.listState.saleRank.online.name[1] },
+                { value: this.listState.saleRank.shop.value[2], name: this.listState.saleRank.online.name[2] },
+                { value: this.listState.saleRank.shop.value[3], name: this.listState.saleRank.online.name[3] },
+                { value: this.listState.saleRank.shop.value[4], name: this.listState.saleRank.online.name[4] },
+                { value: this.listState.saleRank.shop.value[5], name: this.listState.saleRank.online.name[5] }
+              ]
+            }
+          ]
+        })
+      }
+    },
+    listState() {
+      this.myChart.setOption({
+        title: {
+          text: this.listState.saleRank.online.name[0],
+          subtext: (this.listState.saleRank.online.value[0] + this.listState.saleRank.shop.value[0]) / 2 + '%',
+          left: 'center',
+          top: 'center'
+        },
+        series: [
+          {
+            name: 'Access From',
+            type: 'pie',
+            radius: ['40%', '70%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 5,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: {
+              show: true,
+              position: 'outside'
+            },
+            labelLine: {
+              show: true
+            },
+            data: [
+              { value: (this.listState.saleRank.online.value[0] + this.listState.saleRank.shop.value[0]) / 2, name: this.listState.saleRank.online.name[0] },
+              { value: (this.listState.saleRank.online.value[1] + this.listState.saleRank.shop.value[1]) / 2, name: this.listState.saleRank.online.name[1] },
+              { value: (this.listState.saleRank.online.value[2] + this.listState.saleRank.shop.value[2]) / 2, name: this.listState.saleRank.online.name[2] },
+              { value: (this.listState.saleRank.online.value[3] + this.listState.saleRank.shop.value[3]) / 2, name: this.listState.saleRank.online.name[3] },
+              { value: (this.listState.saleRank.online.value[4] + this.listState.saleRank.shop.value[4]) / 2, name: this.listState.saleRank.online.name[4] },
+              { value: (this.listState.saleRank.online.value[5] + this.listState.saleRank.shop.value[5]) / 2, name: this.listState.saleRank.online.name[5] }
+            ]
+          }
+        ]
+      })
+    }
+  },
+  computed: {
+    ...mapState({
+      listState: state => state.home.list
+    })
   },
   mounted() {
     // 饼图
-    var myChart = echarts.init(this.$refs.charts)
-    myChart.setOption({
+    this.myChart = echarts.init(this.$refs.charts)
+    this.myChart.setOption({
       title: {
-        text: '视频',
-        subtext: 1048,
+        text: '',
+        subtext: '',
         left: 'center',
         top: 'center'
       },
@@ -53,23 +214,24 @@ export default {
             show: true
           },
           data: [
-            { value: 1048, name: '视频' },
-            { value: 735, name: 'Direct' },
-            { value: 580, name: 'Email' },
-            { value: 484, name: 'Union Ads' },
-            { value: 300, name: 'Video Ads' }
+            { value: '', name: '' },
+            { value: '', name: '' },
+            { value: '', name: '' },
+            { value: '', name: '' },
+            { value: '', name: '' },
+            { value: '', name: '' }
           ]
         }
       ]
     })
     // 绑定事件
-    myChart.on('mouseover', (params) => {
+    this.myChart.on('mouseover', (params) => {
       const { name, value } = params.data
       // 重新设置标题
-      myChart.setOption({
+      this.myChart.setOption({
         title: {
           text: name,
-          subtext: value
+          subtext: value + '%'
         }
       })
     })

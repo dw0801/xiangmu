@@ -1,6 +1,6 @@
 {
   "salesTotal":114779,
-  "salesToday":112356,
+  "salesToday":11235,
   "salesGrowthLastDay": -19.16,
   "salesGrowthLastMonth": 56.67,
 
@@ -24,7 +24,7 @@
     620
   ],
 
-  "payTotal": 182425,
+  "payTotal": 18242,
   "payRate": 60.2,
   "payTrend": [
     410,
@@ -157,212 +157,212 @@
   "searchWord": [
     {
       "word": "北京",
-      "count": 3440,
+      "count": 344,
       "user": 1626
     },
     {
       "word": "上海",
-      "count": 8101,
+      "count": 810,
       "user": 6660
     },
     {
       "word": "广州",
-      "count": 7814,
+      "count": 781,
       "user": 2196
     },
     {
       "word": "深圳",
-      "count": 8888,
+      "count": 888,
       "user": 7102
     },
     {
       "word": "南京",
-      "count": 6204,
+      "count": 620,
       "user": 1949
     },
     {
       "word": "杭州",
-      "count": 8159,
+      "count": 815,
       "user": 3548
     },
     {
       "word": "合肥",
-      "count": 269,
+      "count": 26,
       "user": 151
     },
     {
       "word": "济南",
-      "count": 2045,
+      "count": 204,
       "user": 1320
     },
     {
       "word": "太原",
-      "count": 5693,
+      "count": 569,
       "user": 2297
     },
     {
       "word": "成都",
-      "count": 4850,
+      "count": 485,
       "user": 1635
     },
     {
       "word": "重庆",
-      "count": 906,
+      "count": 90,
       "user": 269
     },
     {
       "word": "苏州",
-      "count": 5576,
+      "count": 557,
       "user": 3937
     },
     {
       "word": "无锡",
-      "count": 1576,
+      "count": 157,
       "user": 796
     },
     {
       "word": "常州",
-      "count": 9002,
+      "count": 900,
       "user": 8508
     },
     {
       "word": "温州",
-      "count": 8103,
+      "count": 810,
       "user": 4903
     },
     {
       "word": "哈尔滨",
-      "count": 7961,
+      "count": 796,
       "user": 6173
     },
     {
       "word": "长春",
-      "count": 5916,
+      "count": 591,
       "user": 3117
     },
     {
       "word": "大连",
-      "count": 5012,
+      "count": 501,
       "user": 78
     },
     {
       "word": "沈阳",
-      "count": 8410,
+      "count": 841,
       "user": 5696
     },
     {
       "word": "拉萨",
-      "count": 3385,
+      "count": 338,
       "user": 2547
     },
     {
       "word": "呼和浩特",
-      "count": 4672,
+      "count": 467,
       "user": 34
     },
     {
       "word": "武汉",
-      "count": 7386,
+      "count": 738,
       "user": 4047
     },
     {
       "word": "南宁",
-      "count": 6192,
+      "count": 619,
       "user": 612
     },
     {
       "word": "必胜客",
-      "count": 3504,
+      "count": 350,
       "user": 2480
     },
     {
       "word": "肯德基",
-      "count": 3727,
+      "count": 372,
       "user": 2527
     },
     {
       "word": "麦当劳",
-      "count": 8959,
+      "count": 895,
       "user": 6198
     },
     {
       "word": "海底捞",
-      "count": 5295,
+      "count": 529,
       "user": 2264
     },
     {
       "word": "美食",
-      "count": 7348,
+      "count": 734,
       "user": 5555
     },
     {
       "word": "商超",
-      "count": 1628,
+      "count": 162,
       "user": 1295
     },
     {
       "word": "水果",
-      "count": 892,
+      "count": 89,
       "user": 215
     },
     {
       "word": "跑腿",
-      "count": 254,
+      "count": 25,
       "user": 40
     },
     {
       "word": "送药",
-      "count": 8377,
+      "count": 837,
       "user": 4363
     },
     {
       "word": "烩饭",
-      "count": 2009,
+      "count": 200,
       "user": 1080
     },
     {
       "word": "面条",
-      "count": 7684,
+      "count": 768,
       "user": 4299
     },
     {
       "word": "小龙虾",
-      "count": 3187,
+      "count": 318,
       "user": 562
     },
     {
       "word": "牛肉",
-      "count": 3612,
+      "count": 361,
       "user": 3449
     },
     {
       "word": "鸡腿",
-      "count": 4460,
+      "count": 44,
       "user": 367
     },
     {
       "word": "全家桶",
-      "count": 7206,
+      "count": 720,
       "user": 3682
     },
     {
       "word": "麦乐鸡",
-      "count": 3383,
+      "count": 338,
       "user": 3048
     },
     {
       "word": "炭烤",
-      "count": 8818,
-      "user": 26
+      "count": 81,
+      "user": 266
     },
     {
       "word": "麻辣",
-      "count": 1297,
+      "count": 129,
       "user": 905
     },
     {
       "word": "冒菜",
-      "count": 3015,
+      "count": 301,
       "user": 2362
     }
   ],
@@ -377,7 +377,7 @@
         "母婴产品",
         "其他"
       ],
-      "value": [244, 321, 301, 41, 111, 69]
+      "value": [32,28,17,10,15,8]
     },
     "shop": {
       "name": [
@@ -388,7 +388,7 @@
         "母婴产品",
         "其他"
       ],
-      "value": [68, 15, 41, 56, 70, 25, 31]
+      "value": [38,15,14,11,12,10]
     }
   }
 }

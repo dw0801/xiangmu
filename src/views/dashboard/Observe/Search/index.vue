@@ -20,28 +20,29 @@
       <div>
         <el-row :gutter="10">
           <el-col :span="12">
-            <LineCharts />
+            <LineCharts title="搜索用户数" search="11460" data="8.12%" zf="-" />
           </el-col>
           <el-col :span="12">
-            <LineCharts />
+            <LineCharts title="周涨幅" search="1201" data="12.1%" zf="+" />
           </el-col>
         </el-row>
       </div>
       <div class="table">
         <el-table :data="tableData" style="width: 100%" border>
           <el-table-column label="排名" width="80" type="index" />
-          <el-table-column label="搜索关键字" />
-          <el-table-column sortable label="用户数" />
-          <el-table-column sortable label="周涨幅" />
+          <el-table-column label="搜索关键字" prop="word" />
+          <el-table-column sortable label="用户数" prop="user" />
+          <el-table-column sortable label="周涨幅" prop="count" />
         </el-table>
         <!-- 分页器 -->
-        <el-pagination layout="prev, pager, next" :total="100" class="pagination" />
+        <el-pagination layout="prev, pager, next" :page-size="5" :total="total" class="pagination" @current-change="handleCurrentChange" />
       </div>
     </el-card>
   </div>
 </template>
 <script>
 import LineCharts from './lineCharts'
+import { mapState } from 'vuex'
 export default {
   name: '',
   components: {
@@ -49,7 +50,26 @@ export default {
   },
   data() {
     return {
-      tableData: [{}]
+      tableData: [{}],
+      total: 0,
+      i: 0
+    }
+  },
+  computed: {
+    ...mapState({
+      listState: state => state.home.list
+    })
+  },
+  watch: {
+    listState() {
+      this.total = this.listState.searchWord.length
+      this.tableData = this.listState.searchWord.slice(this.i, this.i + 5)
+    }
+  },
+  methods: {
+    handleCurrentChange(val) {
+      this.i = val
+      this.tableData = this.listState.searchWord.slice(this.i, this.i + 5)
     }
   }
 }

@@ -26,40 +26,10 @@
         <el-col :span="6">
           <span class="title">门店{{ title }}排名</span>
           <ul>
-            <li>
-              <span class="index1">1</span>
-              <span>肯德基</span>
-              <span class="index3">1234534</span>
-            </li>
-            <li>
-              <span class="index1">2</span>
-              <span>肯德基</span>
-              <span class="index3">1234534</span>
-            </li>
-            <li>
-              <span class="index1">3</span>
-              <span>肯德基</span>
-              <span class="index3">1234534</span>
-            </li>
-            <li>
-              <span class="index2">4</span>
-              <span>肯德基</span>
-              <span class="index3">1234534</span>
-            </li>
-            <li>
-              <span class="index2">5</span>
-              <span>肯德基</span>
-              <span class="index3">1234534</span>
-            </li>
-            <li>
-              <span class="index2">6</span>
-              <span>肯德基</span>
-              <span class="index3">1234534</span>
-            </li>
-            <li>
-              <span class="index2">7</span>
-              <span>肯德基</span>
-              <span class="index3">1234534</span>
+            <li v-for="item in this.listState.userRank" :key="item.no">
+              <span :class="item.no<4?'index1':'index2'">{{ item.no }}</span>
+              <span>{{ item.name }}</span>
+              <span class="index3">{{ item.money }}</span>
             </li>
           </ul>
         </el-col>
@@ -71,6 +41,7 @@
 // 引入echarts
 import * as echarts from 'echarts'
 import dayjs from 'dayjs'
+import { mapState } from 'vuex'
 export default {
   name: '',
   data() {
@@ -85,6 +56,55 @@ export default {
     // 计算属性-标题
     title() {
       return this.activeName === 'sale' ? '销售额趋势' : '访问量趋势'
+    },
+    ...mapState({
+      listState: state => state.home.list
+    })
+  },
+  watch: {
+    listState() {
+      this.myChart.setOption({
+        title: {
+          text: '销售额趋势'
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            // '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'
+            data: this.listState.orderFullYearAxis,
+            axisTick: {
+              alignWithLabel: true
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            name: 'Direct',
+            type: 'bar',
+            barWidth: '40%',
+            // 10, 52, 200, 334, 390, 330, 220, 100, 50, 150, 20, 170
+            data: this.listState.orderFullYear,
+            color: 'yellowgreen'
+          }
+        ]
+      })
     }
   },
   mounted() {
@@ -109,7 +129,8 @@ export default {
       xAxis: [
         {
           type: 'category',
-          data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+          // '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'
+          data: [],
           axisTick: {
             alignWithLabel: true
           }
@@ -125,7 +146,8 @@ export default {
           name: 'Direct',
           type: 'bar',
           barWidth: '40%',
-          data: [10, 52, 200, 334, 390, 330, 220, 100, 50, 150, 20, 170],
+          // 10, 52, 200, 334, 390, 330, 220, 100, 50, 150, 20, 170
+          data: [],
           color: 'yellowgreen'
         }
       ]
@@ -160,7 +182,20 @@ export default {
       this.myChart.setOption({
         title: {
           text: this.title
-        }
+        },
+        xAxis: {
+          data: this.title === '销售额趋势' ? this.listState.orderFullYearAxis : this.listState.userFullYearAxis
+        },
+        series: [
+          {
+            name: 'Direct',
+            type: 'bar',
+            barWidth: '40%',
+            // 10, 52, 200, 334, 390, 330, 220, 100, 50, 150, 20, 170
+            data: this.title === '销售额趋势' ? this.listState.orderFullYear : this.listState.userFullYear,
+            color: 'yellowgreen'
+          }
+        ]
       })
     }
   }

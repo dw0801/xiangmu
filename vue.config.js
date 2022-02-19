@@ -36,6 +36,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    before: require('./mock/mock-server.js'),
     // 配置跨域
     proxy: {
       '/dev-api': {
@@ -44,6 +45,7 @@ module.exports = {
       }
     }
   },
+  // 开启MOCK
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
