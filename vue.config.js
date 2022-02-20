@@ -36,14 +36,15 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js'),
+
     // 配置跨域
     proxy: {
       '/dev-api': {
         target: 'http://39.98.123.211',
         pathRewrite: { '^/dev-api': '' }
       }
-    }
+    },
+    after: require('./mock/mock-server.js')
   },
   // 开启MOCK
   configureWebpack: {

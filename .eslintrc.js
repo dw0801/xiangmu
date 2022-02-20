@@ -195,5 +195,10 @@ module.exports = {
     }],
     'array-bracket-spacing': [2, 'never'],
     // "indent": ["error", "ignoredNodes"]
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+  }],
   }
 }

@@ -251,6 +251,6 @@ export default {
 }
 .charts {
   width: 100%;
-  height: 300px;
+  height: 420px;
 }
 </style>
